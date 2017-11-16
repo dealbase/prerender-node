@@ -1,4 +1,4 @@
-var got = require('got')
+var _got = require('got')
   , url = require('url')
   , zlib = require('zlib');
 
@@ -191,13 +191,13 @@ prerender.getPrerenderedPageResponse = function(req, callback) {
     options.headers['X-Prerender-Token'] = this.prerenderToken || process.env.PRERENDER_TOKEN;
   }
 
-  got(options.uri, options).on('response', function(response) {
+  _got(options.uri, options).then(function(response) {
     if(response.headers['content-encoding'] && response.headers['content-encoding'] === 'gzip') {
       prerender.gunzipResponse(response, callback);
     } else {
       prerender.plainResponse(response, callback);
     }
-  }).on('error', function(err) {
+  }).catch(function(err) {
     callback(err);
   });
 };
