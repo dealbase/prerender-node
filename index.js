@@ -192,11 +192,12 @@ prerender.getPrerenderedPageResponse = function(req, callback) {
   }
 
   _got(options.uri, options).then(function(response) {
-    if(response.headers['content-encoding'] && response.headers['content-encoding'] === 'gzip') {
-      prerender.gunzipResponse(response, callback);
-    } else {
-      prerender.plainResponse(response, callback);
-    }
+    callback(null, response);
+    // if(response.headers['content-encoding'] && response.headers['content-encoding'] === 'gzip') {
+    //   prerender.gunzipResponse(response, callback);
+    // } else {
+    //   prerender.plainResponse(response, callback);
+    // }
   }).catch(function(err) {
     callback(err);
   });
